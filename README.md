@@ -1,14 +1,27 @@
 # Site protégé VidSRC
 
-Site static avec accès protégé par code, prêt à être publié sur GitHub Pages.
+Site static avec accès protégé par code, intégrant l'API complète VidSRC.
+
+## Endpoints VidSRC intégrés
+
+- `https://vidsrc.to/embed/movie/{id}` - Lecteur embed pour films
+- `https://vidsrc.to/embed/tv/{id}` - Lecteur embed pour séries
+- `https://vidsrc.to/api/v1/movie/new?page={n}` - Liste des nouveaux films
+- `https://vidsrc.to/api/v1/tv/new?page={n}` - Liste des nouvelles séries
+- `https://vidsrc.to/api/v1/episode/new?page={n}` - Liste des nouveaux épisodes
 
 ## Fonctionnalités
 
-- écran d'accès avec code : `Mathis1109`
-- verrouillage après plusieurs essais invalides
-- validation côté client et stockage de l'accès dans `localStorage`
-- recherche VidSRC via l'API depuis le navigateur
-- aucun serveur Node nécessaire
+- Trois modes d'accès :
+  1. **Recherche** : Entrer un ID ou URL VidSRC (films ou séries)
+  2. **Films** : Parcourir les derniers films avec pagination
+  3. **Séries** : Parcourir les dernières séries avec pagination
+  4. **Épisodes** : Parcourir les derniers épisodes avec pagination
+- Code d'accès : `Mathis1109`
+- Protection anti-brute force après 5 essais
+- Blocage temporaire de 90 secondes après trop d'essais
+- Lecteur iframe intégré
+- Pagination pour les listes
 
 ## Installation / Publication
 
@@ -16,6 +29,7 @@ Site static avec accès protégé par code, prêt à être publié sur GitHub Pa
    - `index.html`
    - `styles.css`
    - `app.js`
+   - `README.md`
 2. Pousse le dépôt sur GitHub.
 3. Active GitHub Pages dans les paramètres du dépôt.
 4. Ton site sera accessible en mode statique.
@@ -23,20 +37,3 @@ Site static avec accès protégé par code, prêt à être publié sur GitHub Pa
 ## Utilisation locale
 
 Tu peux ouvrir `index.html` directement dans un navigateur ou utiliser une extension de serveur local comme Live Server.
-
-## API VidSRC Embed
-
-- Ce site utilise l'endpoint `https://vidsrc.to/embed/movie/`.
-- Saisis un ID VidSRC ou une URL de type `https://vidsrc.to/embed/movie/12345`.
-- Le lecteur s'affiche directement dans une iframe.
-
-## Code d'accès
-
-- Le code d'accès est `Mathis1109`.
-- Si le code est faux, l'accès est bloqué temporairement après plusieurs tentatives.
-
-## Remarques de sécurité
-
-- Ce site est statique : la logique de protection est dans le navigateur.
-- La clé VidSRC ne peut pas être totalement cachée dans un site statique, mais ce code réduit les accès directs sans le code.
-- Pour une vraie sécurité, il faudrait un serveur ou un service backend pour protéger la clé API et gérer l'authentification.

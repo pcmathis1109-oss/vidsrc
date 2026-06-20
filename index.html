@@ -22,13 +22,40 @@
       </div>
 
       <div id="content-screen" class="card hidden">
-        <h2>Contenu protégé</h2>
-        <p>Le code a été validé. Saisis l'ID ou l'URL VidSRC pour afficher l'embed.</p>
-        <label for="search-query">ID ou URL VidSRC</label>
-        <input id="search-query" type="text" placeholder="Ex : 12345 ou https://vidsrc.to/embed/movie/12345" />
-        <button id="search-button">Charger le film</button>
-        <div id="video-result" class="result"></div>
-        <div id="player-container" class="result"></div>
+        <h2>VidSRC</h2>
+        
+        <div class="controls">
+          <label for="content-type">Type de contenu</label>
+          <select id="content-type">
+            <option value="search">Recherche (ID ou URL)</option>
+            <option value="movies">Films nouveaux</option>
+            <option value="tv">Séries nouvelles</option>
+            <option value="episodes">Épisodes nouveaux</option>
+          </select>
+
+          <div id="search-controls" class="control-group">
+            <label for="search-query">ID ou URL VidSRC</label>
+            <input id="search-query" type="text" placeholder="Ex : 12345 ou https://vidsrc.to/embed/movie/12345" />
+            <button id="search-button">Charger</button>
+          </div>
+
+          <div id="list-controls" class="control-group hidden">
+            <button id="load-list-button">Charger la liste</button>
+            <div id="pagination-controls" class="pagination hidden">
+              <button id="prev-page">← Précédent</button>
+              <span id="page-info">Page 1</span>
+              <button id="next-page">Suivant →</button>
+            </div>
+          </div>
+        </div>
+
+        <p id="status-message" class="message"></p>
+        
+        <div id="content-list" class="content-list hidden">
+          <div id="list-items"></div>
+        </div>
+
+        <div id="player-container" class="result hidden"></div>
       </div>
     </main>
   </div>
