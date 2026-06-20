@@ -9,29 +9,35 @@
 <body>
   <div class="page">
     <header>
-      <h1>Accès VidSRC</h1>
-      <p>Entrez le code pour déverrouiller l’accès au contenu.</p>
+      <div class="header-badge">VidSRC</div>
+      <h1>Accès sécurisé au contenu</h1>
+      <p>Entrez le code pour afficher les films, séries et épisodes disponibles.</p>
     </header>
 
     <main>
-      <div id="lock-screen" class="card">
+      <section id="lock-screen" class="card glass-card">
+        <div class="card-title">Connexion requise</div>
+        <p class="card-text">Le code d'accès protège l'interface avant la lecture.</p>
         <label for="access-code">Code d'accès</label>
         <input id="access-code" type="password" placeholder="Entrez le code" autocomplete="off" />
         <button id="unlock-button">Déverrouiller</button>
         <p id="lock-message" class="message"></p>
-      </div>
+      </section>
 
-      <div id="content-screen" class="card hidden">
-        <h2>VidSRC</h2>
-        
+      <section id="content-screen" class="card glass-card hidden">
+        <div class="card-title">Choix du contenu</div>
+        <p class="card-text">Explore les contenus VidSRC via recherche ou listes récentes.</p>
+
         <div class="controls">
-          <label for="content-type">Type de contenu</label>
-          <select id="content-type">
-            <option value="search">Recherche (ID ou URL)</option>
-            <option value="movies">Films nouveaux</option>
-            <option value="tv">Séries nouvelles</option>
-            <option value="episodes">Épisodes nouveaux</option>
-          </select>
+          <div class="control-row">
+            <label for="content-type">Mode</label>
+            <select id="content-type">
+              <option value="search">Recherche (ID ou URL)</option>
+              <option value="movies">Films nouveaux</option>
+              <option value="tv">Séries nouvelles</option>
+              <option value="episodes">Épisodes nouveaux</option>
+            </select>
+          </div>
 
           <div id="search-controls" class="control-group">
             <label for="search-query">ID ou URL VidSRC</label>
@@ -50,13 +56,13 @@
         </div>
 
         <p id="status-message" class="message"></p>
-        
+
         <div id="content-list" class="content-list hidden">
           <div id="list-items"></div>
         </div>
 
         <div id="player-container" class="result hidden"></div>
-      </div>
+      </section>
     </main>
   </div>
 
