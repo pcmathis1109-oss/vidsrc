@@ -1,4 +1,4 @@
-// DOM Elements
+ï»¿// DOM Elements
 const lockScreen = document.getElementById('lock-screen');
 const contentScreen = document.getElementById('content-screen');
 const accessCodeInput = document.getElementById('access-code');
@@ -31,7 +31,7 @@ let cachedList = [];
 
 function showMessage(element, text, type = 'error') {
   element.textContent = text;
-  element.className = type ? 'message ' + type : 'message';
+  element.className = type ? `message ${type}` : 'message';
 }
 
 function codeToArray(code) {
@@ -88,7 +88,7 @@ function renderAccessState() {
 function unlock() {
   if (isBlocked()) {
     const remaining = Math.ceil((getBlockUntil() - Date.now()) / 1000);
-    showMessage(lockMessage, 'Trop d''essais. Réessaye dans ' + remaining + ' secondes.', 'error');
+    showMessage(lockMessage, `Trop d'essais. RÃ©essaye dans ${remaining} secondes.`, 'error');
     return;
   }
 
@@ -133,16 +133,22 @@ function extractVidsrcId(input) {
   if (urlMatch) {
     return { type: urlMatch[1], id: urlMatch[2] };
   }
-  const digitsOnly = trimmed.match(/^(\d+)$'/);
+
+  const digitsOnly = trimmed.match(/^(\d+)$/);
   if (digitsOnly) {
     return { type: currentContentType === 'tv' ? 'tv' : 'movie', id: digitsOnly[1] };
   }
+
   return null;
 }
 
 function renderPlayer(type, id) {
-  const embedUrl = 'https://vidsrc.to/embed/' + type + '/' + id;
-  playerContainer.innerHTML = '<div class=\"iframe-wrapper\"><iframe src=\"' + embedUrl + '\" frameborder=\"0\" allowfullscreen allow=\"autoplay; fullscreen\" title=\"VidSRC Embed\"><' + '/iframe></div>';
+  const embedUrl = `https://vidsrc.to/embed/${type}/${id}`;
+  playerContainer.innerHTML = `
+    <div class="iframe-wrapper">
+      <iframe src="${embedUrl}" frameborder="0" allowfullscreen allow="autoplay; fullscreen" title="VidSRC Embed"></iframe>
+    </div>
+  `;
   playerContainer.classList.remove('hidden');
   contentList.classList.add('hidden');
   statusMessage.textContent = '';
@@ -156,11 +162,11 @@ async function fetchList(page = 1) {
 
   let endpoint = '';
   if (currentContentType === 'movies') {
-    endpoint = 'https://vidsrc.to/api/v1/movie/new?page=' + page;
+    endpoint = `https://vidsrc.to/api/v1/movie/new?page=${page}`;
   } else if (currentContentType === 'tv') {
-    endpoint = 'https://vidsrc.to/api/v1/tv/new?page=' + page;
+    endpoint = `https://vidsrc.to/api/v1/tv/new?page=${page}`;
   } else if (currentContentType === 'episodes') {
-    endpoint = 'https://vidsrc.to/api/v1/episode/new?page=' + page;
+    endpoint = `https://vidsrc.to/api/v1/episode/new?page=${page}`;
   }
 
   if (!endpoint) return;
@@ -169,7 +175,7 @@ async function fetchList(page = 1) {
     showMessage(statusMessage, 'Chargement...', 'info');
     const response = await fetch(endpoint);
     if (!response.ok) {
-      showMessage(statusMessage, 'Erreur API: ' + response.status, 'error');
+      showMessage(statusMessage, `Erreur API: ${response.status}`, 'error');
       return;
     }
 
@@ -180,13 +186,13 @@ async function fetchList(page = 1) {
     renderList();
     showMessage(statusMessage, '', '');
   } catch (error) {
-    showMessage(statusMessage, 'Erreur: ' + error.message, 'error');
+    showMessage(statusMessage, `Erreur: ${error.message}`, 'error');
   }
 }
 
 function renderList() {
   if (!cachedList || cachedList.length === 0) {
-    showMessage(statusMessage, 'Aucun résultat.', 'error');
+    showMessage(statusMessage, 'Aucun rÃ©sultat.', 'error');
     contentList.classList.add('hidden');
     return;
   }
@@ -195,19 +201,28 @@ function renderList() {
   cachedList.forEach((item) => {
     const itemEl = document.createElement('div');
     itemEl.className = 'list-item';
-    
+
     const id = item.id || item.imdbID || item.tmdbID || '';
     const title = item.title || item.name || item.tv_name || 'Sans titre';
     const poster = item.poster || item.image || '';
-    
-    itemEl.innerHTML = '<div class=\"item-content\">' + (poster ? '<img src=\"' + poster + '\" alt=\"' + title + '\" class=\"item-poster\">' : '') + '<div class=\"item-info\"><h3>' + title + '<' + '/h3><p>ID: ' + id + '<' + '/p><button class=\"item-button\" data-id=\"' + id + '\" data-type=\"' + currentContentType + '\">Regarder<' + '/button><' + '/div><' + '/div>';
-    
+
+    itemEl.innerHTML = `
+      <div class="item-content">
+        ${poster ? `<img src="${poster}" alt="${title}" class="item-poster">` : ''}
+        <div class="item-info">
+          <h3>${title}</h3>
+          <p>ID: ${id}</p>
+          <button class="item-button" data-id="${id}">Regarder</button>
+        </div>
+      </div>
+    `;
+
     const btn = itemEl.querySelector('.item-button');
     btn.addEventListener('click', () => {
       const type = currentContentType === 'episodes' ? 'episode' : currentContentType === 'tv' ? 'tv' : 'movie';
       renderPlayer(type, id);
     });
-    
+
     listItems.appendChild(itemEl);
   });
 
@@ -216,7 +231,7 @@ function renderList() {
 }
 
 function updatePageInfo() {
-  pageInfo.textContent = 'Page ' + currentPage;
+  pageInfo.textContent = `Page ${currentPage}`;
 }
 
 unlockButton.addEventListener('click', unlock);
