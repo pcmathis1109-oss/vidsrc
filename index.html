@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VidSRC Protégé</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Accès VidSRC</h1>
+      <p>Entrez le code pour déverrouiller l’accès au contenu.</p>
+    </header>
+
+    <main>
+      <div id="lock-screen" class="card">
+        <label for="access-code">Code d'accès</label>
+        <input id="access-code" type="password" placeholder="Entrez le code" autocomplete="off" />
+        <button id="unlock-button">Déverrouiller</button>
+        <p id="lock-message" class="message"></p>
+      </div>
+
+      <div id="content-screen" class="card hidden">
+        <h2>Contenu protégé</h2>
+        <p>Le code a été validé. Saisis l'ID ou l'URL VidSRC pour afficher l'embed.</p>
+        <label for="search-query">ID ou URL VidSRC</label>
+        <input id="search-query" type="text" placeholder="Ex : 12345 ou https://vidsrc.to/embed/movie/12345" />
+        <button id="search-button">Charger le film</button>
+        <div id="video-result" class="result"></div>
+        <div id="player-container" class="result"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
