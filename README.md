@@ -17,6 +17,7 @@ Site static avec accès protégé par code, intégrant l'API complète VidSRC.
   2. **Films** : Parcourir les derniers films avec pagination
   3. **Séries** : Parcourir les dernières séries avec pagination
   4. **Épisodes** : Parcourir les derniers épisodes avec pagination
+- Code d'accès : `Mathis1109`
 - Protection anti-brute force après 5 essais
 - Blocage temporaire de 90 secondes après trop d'essais
 - Lecteur iframe intégré
